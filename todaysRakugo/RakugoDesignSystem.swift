@@ -274,28 +274,44 @@ struct RakugoSectionHeader: View {
 
 struct StoryIllustrationPlaceholder: View {
     let backgroundKey: SceneBackgroundKey
+    var backgroundAssetName: String?
     var characterLayers: [CharacterLayer] = []
+    var decorativeLayer: SceneDecorativeLayer?
     var mood: AmbientEffect = .paper
     var cornerRadius: CGFloat = 18
 
     var body: some View {
         GeometryReader { proxy in
             ZStack {
-                backgroundBase(for: backgroundKey)
+                if let backgroundAssetName {
+                    Image(backgroundAssetName)
+                        .resizable()
+                        .scaledToFill()
+                        .frame(width: proxy.size.width, height: proxy.size.height)
+                        .clipped()
+                } else {
+                    backgroundBase(for: backgroundKey)
+                }
 
                 paperScratches
 
-                switch backgroundKey {
-                case .yoseInterior:
-                    yoseInterior(in: proxy.size)
-                case .sobaStand:
-                    sobaStand(in: proxy.size)
-                case .moonlitEdoStreet:
-                    moonlitStreet(in: proxy.size)
-                case .narrowAlley:
-                    narrowAlley(in: proxy.size)
-                case .quietRoom:
-                    quietRoom(in: proxy.size)
+                if backgroundAssetName == nil {
+                    switch backgroundKey {
+                    case .yoseInterior:
+                        yoseInterior(in: proxy.size)
+                    case .sobaStand:
+                        sobaStand(in: proxy.size)
+                    case .sobaCounter:
+                        sobaCounter(in: proxy.size)
+                    case .moonlitEdoStreet:
+                        moonlitStreet(in: proxy.size)
+                    case .emptyEdoStreet:
+                        emptyEdoStreet(in: proxy.size)
+                    case .narrowAlley:
+                        narrowAlley(in: proxy.size)
+                    case .quietRoom:
+                        quietRoom(in: proxy.size)
+                    }
                 }
 
                 ForEach(characterLayers) { layer in
@@ -304,6 +320,8 @@ struct StoryIllustrationPlaceholder: View {
                         .position(characterPosition(layer.placement, in: proxy.size))
                         .transition(.opacity)
                 }
+
+                decorativeOverlay(decorativeLayer, in: proxy.size)
 
                 if mood == .lantern {
                     RadialGradient(
@@ -359,8 +377,12 @@ struct StoryIllustrationPlaceholder: View {
         switch key {
         case .moonlitEdoStreet:
             colors = [Color.mossGreen.opacity(0.62), Color.sumiBlack.opacity(0.84)]
+        case .emptyEdoStreet:
+            colors = [Color.washiIvory.opacity(0.4), Color.mossGreen.opacity(0.54), Color.sumiBlack.opacity(0.82)]
         case .sobaStand:
             colors = [Color.oldWood.opacity(0.68), Color.washiIvory.opacity(0.7)]
+        case .sobaCounter:
+            colors = [Color.oldWood.opacity(0.62), Color.washiIvory.opacity(0.78)]
         case .narrowAlley:
             colors = [Color.mossGreen.opacity(0.52), Color.oldWood.opacity(0.58)]
         case .quietRoom:
@@ -380,6 +402,63 @@ struct StoryIllustrationPlaceholder: View {
             CGPoint(x: size.width * 0.52, y: size.height * 0.66)
         case .right:
             CGPoint(x: size.width * 0.72, y: size.height * 0.67)
+        }
+    }
+
+    @ViewBuilder
+    private func decorativeOverlay(_ layer: SceneDecorativeLayer?, in size: CGSize) -> some View {
+        switch layer {
+        case .lanternGlow:
+            RadialGradient(
+                colors: [Color.lanternOrange.opacity(0.24), .clear],
+                center: .bottomTrailing,
+                startRadius: 18,
+                endRadius: size.width * 0.5
+            )
+        case .moonAndStars:
+            ZStack {
+                Circle()
+                    .fill(Color.washiIvory.opacity(0.34))
+                    .frame(width: size.width * 0.13, height: size.width * 0.13)
+                    .position(x: size.width * 0.18, y: size.height * 0.17)
+
+                ForEach(0..<7, id: \.self) { index in
+                    Image(systemName: "sparkle")
+                        .font(.system(size: 5 + CGFloat(index % 3) * 2, weight: .light))
+                        .foregroundStyle(Color.washiIvory.opacity(0.24))
+                        .position(
+                            x: size.width * CGFloat(0.18 + Double((index * 13) % 68) / 100.0),
+                            y: size.height * CGFloat(0.14 + Double((index * 19) % 34) / 100.0)
+                        )
+                }
+            }
+        case .steam:
+            ZStack {
+                ForEach(0..<5, id: \.self) { index in
+                    Capsule()
+                        .stroke(Color.washiIvory.opacity(0.18), lineWidth: 1.1)
+                        .frame(width: size.width * 0.08, height: size.height * 0.18)
+                        .rotationEffect(.degrees(Double(index * 7) - 12))
+                        .position(
+                            x: size.width * CGFloat(0.38 + Double(index) * 0.055),
+                            y: size.height * CGFloat(0.42 - Double(index % 2) * 0.04)
+                        )
+                }
+            }
+        case .paperDust:
+            ZStack {
+                ForEach(0..<12, id: \.self) { index in
+                    Circle()
+                        .fill(Color.washiIvory.opacity(index.isMultiple(of: 3) ? 0.18 : 0.1))
+                        .frame(width: CGFloat(2 + index % 4), height: CGFloat(2 + index % 4))
+                        .position(
+                            x: size.width * CGFloat(Double((index * 17) % 86) / 100.0 + 0.07),
+                            y: size.height * CGFloat(Double((index * 29) % 70) / 100.0 + 0.12)
+                        )
+                }
+            }
+        case nil:
+            EmptyView()
         }
     }
 
@@ -440,6 +519,40 @@ struct StoryIllustrationPlaceholder: View {
     }
 
     @ViewBuilder
+    private func sobaCounter(in size: CGSize) -> some View {
+        Rectangle()
+            .fill(Color.oldWood.opacity(0.36))
+            .frame(width: size.width, height: size.height * 0.36)
+            .position(x: size.width * 0.5, y: size.height * 0.78)
+
+        RoundedRectangle(cornerRadius: size.width * 0.03, style: .continuous)
+            .fill(Color.washiIvory.opacity(0.58))
+            .frame(width: size.width * 0.25, height: size.width * 0.18)
+            .overlay {
+                Circle()
+                    .stroke(Color.sumiBlack.opacity(0.16), lineWidth: 1.2)
+                    .padding(size.width * 0.035)
+            }
+            .position(x: size.width * 0.45, y: size.height * 0.56)
+
+        ForEach(0..<6, id: \.self) { index in
+            Circle()
+                .fill(Color.oldWood.opacity(0.42))
+                .frame(width: size.width * 0.035, height: size.width * 0.035)
+                .position(
+                    x: size.width * CGFloat(0.18 + Double(index) * 0.085),
+                    y: size.height * 0.7
+                )
+        }
+
+        Path { path in
+            path.move(to: CGPoint(x: size.width * 0.12, y: size.height * 0.66))
+            path.addLine(to: CGPoint(x: size.width * 0.88, y: size.height * 0.66))
+        }
+        .stroke(Color.sumiBlack.opacity(0.22), lineWidth: 1.4)
+    }
+
+    @ViewBuilder
     private func moonlitStreet(in size: CGSize) -> some View {
         Circle()
             .fill(Color.washiIvory.opacity(0.82))
@@ -461,6 +574,37 @@ struct StoryIllustrationPlaceholder: View {
 
         LanternView(size: size.width * 0.13, showsCord: false)
             .position(x: size.width * 0.83, y: size.height * 0.72)
+    }
+
+    @ViewBuilder
+    private func emptyEdoStreet(in size: CGSize) -> some View {
+        Circle()
+            .fill(Color.washiIvory.opacity(0.68))
+            .frame(width: size.width * 0.15, height: size.width * 0.15)
+            .position(x: size.width * 0.2, y: size.height * 0.18)
+
+        ForEach(0..<4, id: \.self) { index in
+            Path { path in
+                let side = index.isMultiple(of: 2) ? -1.0 : 1.0
+                let originX = side < 0 ? size.width * CGFloat(index) * 0.08 : size.width * (0.72 + CGFloat(index) * 0.045)
+                path.move(to: CGPoint(x: originX, y: size.height * 0.54))
+                path.addLine(to: CGPoint(x: originX + size.width * 0.14, y: size.height * 0.42))
+                path.addLine(to: CGPoint(x: originX + size.width * 0.3, y: size.height * 0.54))
+                path.addLine(to: CGPoint(x: originX + size.width * 0.28, y: size.height * 0.86))
+                path.addLine(to: CGPoint(x: originX + size.width * 0.02, y: size.height * 0.86))
+                path.closeSubpath()
+            }
+            .fill(Color.sumiBlack.opacity(0.26))
+        }
+
+        Path { path in
+            path.move(to: CGPoint(x: size.width * 0.22, y: size.height * 0.9))
+            path.addQuadCurve(
+                to: CGPoint(x: size.width * 0.78, y: size.height * 0.9),
+                control: CGPoint(x: size.width * 0.5, y: size.height * 0.62)
+            )
+        }
+        .stroke(Color.washiIvory.opacity(0.16), lineWidth: 2)
     }
 
     @ViewBuilder

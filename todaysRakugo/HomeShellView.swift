@@ -150,7 +150,7 @@ private struct HomeTabContent: View {
         VStack(alignment: .leading, spacing: 30) {
             if let featuredStory = viewModel.featuredStory {
                 FeaturedStoryCard(story: featuredStory) {
-                    viewModel.open(featuredStory, startingAt: 2)
+                    viewModel.open(featuredStory)
                 }
             }
 

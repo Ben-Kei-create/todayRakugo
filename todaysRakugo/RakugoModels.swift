@@ -68,19 +68,61 @@ enum RakugoCategory: String, Codable, CaseIterable, Identifiable {
 struct RakugoScene: Codable, Equatable, Identifiable {
     let id: String
     let backgroundKey: SceneBackgroundKey
+    let backgroundAssetName: String?
     let characterLayers: [CharacterLayer]
+    let decorativeLayer: SceneDecorativeLayer?
     let japaneseDialogue: String
     let englishSubtitle: String
+    let narrationAvailable: Bool
     let narrationAudio: String?
     let ambientEffect: AmbientEffect
+    let transitionType: SceneTransitionType
+
+    private enum CodingKeys: String, CodingKey {
+        case id
+        case backgroundKey
+        case backgroundAssetName
+        case characterLayers
+        case decorativeLayer
+        case japaneseDialogue
+        case englishSubtitle
+        case narrationAvailable
+        case narrationAudio
+        case ambientEffect
+        case transitionType
+    }
+
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        id = try container.decode(String.self, forKey: .id)
+        backgroundKey = try container.decode(SceneBackgroundKey.self, forKey: .backgroundKey)
+        backgroundAssetName = try container.decodeIfPresent(String.self, forKey: .backgroundAssetName)
+        characterLayers = try container.decodeIfPresent([CharacterLayer].self, forKey: .characterLayers) ?? []
+        decorativeLayer = try container.decodeIfPresent(SceneDecorativeLayer.self, forKey: .decorativeLayer)
+        japaneseDialogue = try container.decode(String.self, forKey: .japaneseDialogue)
+        englishSubtitle = try container.decode(String.self, forKey: .englishSubtitle)
+        narrationAudio = try container.decodeIfPresent(String.self, forKey: .narrationAudio)
+        narrationAvailable = try container.decodeIfPresent(Bool.self, forKey: .narrationAvailable) ?? (narrationAudio != nil)
+        ambientEffect = try container.decodeIfPresent(AmbientEffect.self, forKey: .ambientEffect) ?? .paper
+        transitionType = try container.decodeIfPresent(SceneTransitionType.self, forKey: .transitionType) ?? .crossDissolve
+    }
 }
 
 enum SceneBackgroundKey: String, Codable {
     case yoseInterior
     case sobaStand
+    case sobaCounter
     case moonlitEdoStreet
+    case emptyEdoStreet
     case narrowAlley
     case quietRoom
+}
+
+enum SceneDecorativeLayer: String, Codable {
+    case lanternGlow
+    case moonAndStars
+    case steam
+    case paperDust
 }
 
 struct CharacterLayer: Codable, Equatable, Identifiable {
@@ -100,6 +142,11 @@ enum AmbientEffect: String, Codable {
     case lantern
     case moon
     case paper
+}
+
+enum SceneTransitionType: String, Codable {
+    case fade
+    case crossDissolve
 }
 
 enum AppTab: String, CaseIterable, Identifiable {

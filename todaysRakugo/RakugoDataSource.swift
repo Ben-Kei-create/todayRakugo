@@ -12,12 +12,29 @@ enum RakugoDataSource {
         let decoder = JSONDecoder()
 
         if let url = Bundle.main.url(forResource: "Stories", withExtension: "json"),
-           let data = try? Data(contentsOf: url),
-           let stories = try? decoder.decode([RakugoStory].self, from: data) {
+           let stories = decodeStories(from: url, using: decoder) {
             return stories
         }
 
+#if DEBUG
+        let sourceURL = URL(fileURLWithPath: #filePath)
+            .deletingLastPathComponent()
+            .appendingPathComponent("Stories.json")
+
+        if let stories = decodeStories(from: sourceURL, using: decoder) {
+            return stories
+        }
+#endif
+
         return (try? decoder.decode([RakugoStory].self, from: Data(fallbackJSON.utf8))) ?? []
+    }
+
+    private static func decodeStories(from url: URL, using decoder: JSONDecoder) -> [RakugoStory]? {
+        guard let data = try? Data(contentsOf: url) else {
+            return nil
+        }
+
+        return try? decoder.decode([RakugoStory].self, from: data)
     }
 
     private static let fallbackJSON = """

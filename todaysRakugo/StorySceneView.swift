@@ -30,28 +30,31 @@ struct StorySceneView: View {
 
                             StoryIllustrationPlaceholder(
                                 backgroundKey: scene.backgroundKey,
+                                backgroundAssetName: scene.backgroundAssetName,
                                 characterLayers: scene.characterLayers,
+                                decorativeLayer: scene.decorativeLayer,
                                 mood: scene.ambientEffect,
                                 cornerRadius: 16
                             )
                             .frame(height: illustrationHeight(for: proxy.size))
                             .id(scene.id)
-                            .transition(.opacity)
+                            .transition(scene.transitionType.swiftUITransition)
 
                             DialogueBlock(scene: scene, isEnglishVisible: isEnglishVisible)
                                 .id("dialogue-\(scene.id)-\(isEnglishVisible)")
-                                .transition(.opacity)
+                                .transition(scene.transitionType.swiftUITransition)
                                 .padding(.top, 2)
 
                             Spacer(minLength: 8)
 
-                            bottomBar
+                            bottomBar(scene: scene)
                                 .padding(.bottom, max(proxy.safeAreaInsets.bottom + 18, 28))
                         }
                         .padding(.horizontal, 20)
                         .frame(maxWidth: 430)
                         .frame(maxWidth: .infinity)
                         .frame(minHeight: proxy.size.height)
+                        .animation(scene.transitionType.swiftUIAnimation, value: scene.id)
                     }
                 }
 
@@ -95,7 +98,7 @@ struct StorySceneView: View {
         .frame(height: 46)
     }
 
-    private var bottomBar: some View {
+    private func bottomBar(scene: RakugoScene) -> some View {
         ZStack {
             Text("\(pageIndex + 1) / \(story.scenes.count)")
                 .font(.rakugoSerif(12, weight: .medium))
@@ -105,10 +108,11 @@ struct StorySceneView: View {
                 Button {} label: {
                     Image(systemName: "speaker.wave.2")
                         .font(.system(size: 15))
-                        .foregroundStyle(Color.sumiBlack.opacity(0.54))
+                        .foregroundStyle(Color.sumiBlack.opacity(scene.narrationAvailable ? 0.54 : 0.22))
                         .frame(width: 44, height: 44)
                 }
                 .buttonStyle(.plain)
+                .disabled(!scene.narrationAvailable)
                 .accessibilityLabel("Narration")
 
                 Spacer()
@@ -129,6 +133,21 @@ struct StorySceneView: View {
 
     private func illustrationHeight(for size: CGSize) -> CGFloat {
         min(max(size.height * 0.455, 300), 430)
+    }
+}
+
+private extension SceneTransitionType {
+    var swiftUITransition: AnyTransition {
+        .opacity
+    }
+
+    var swiftUIAnimation: Animation {
+        switch self {
+        case .fade:
+            .easeInOut(duration: 0.42)
+        case .crossDissolve:
+            .easeInOut(duration: 0.58)
+        }
     }
 }
 
@@ -153,9 +172,9 @@ private struct DialogueBlock: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 18) {
             Text(scene.japaneseDialogue)
-                .font(.rakugoSerif(22, weight: .semibold))
-                .foregroundStyle(Color.sumiBlack)
-                .lineSpacing(9)
+                .font(.rakugoSerif(21.5, weight: .semibold))
+                .foregroundStyle(Color.sumiBlack.opacity(0.92))
+                .lineSpacing(10)
                 .fixedSize(horizontal: false, vertical: true)
 
             Rectangle()
@@ -165,13 +184,13 @@ private struct DialogueBlock: View {
             if isEnglishVisible {
                 Text(scene.englishSubtitle)
                     .font(.rakugoSerif(12.5))
-                    .foregroundStyle(Color.sumiBlack.opacity(0.6))
+                    .foregroundStyle(Color.sumiBlack.opacity(0.56))
                     .lineSpacing(5)
                     .fixedSize(horizontal: false, vertical: true)
             }
         }
         .frame(maxWidth: .infinity, alignment: .leading)
-        .padding(.horizontal, 8)
+        .padding(.horizontal, 10)
     }
 }
 
@@ -179,7 +198,7 @@ private struct DialogueBlock: View {
     if let story = RakugoDataSource.loadStories().first {
         StorySceneView(
             story: story,
-            pageIndex: 2,
+            pageIndex: 0,
             isEnglishVisible: true,
             isBookmarked: true,
             onBack: {},

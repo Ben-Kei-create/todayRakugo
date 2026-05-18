@@ -13,7 +13,7 @@ final class RakugoViewModel {
     var isShowingWelcome = true
     var selectedTab: AppTab = .home
     var openStory: RakugoStory?
-    var currentPageIndex = 2
+    var currentPageIndex = 0
     var isEnglishVisible = true
 
     private(set) var stories: [RakugoStory]
@@ -60,7 +60,7 @@ final class RakugoViewModel {
         isShowingWelcome = false
     }
 
-    func open(_ story: RakugoStory, startingAt pageIndex: Int = 2) {
+    func open(_ story: RakugoStory, startingAt pageIndex: Int = 0) {
         openStory = story
         currentPageIndex = min(max(pageIndex, 0), max(story.scenes.count - 1, 0))
     }
@@ -71,7 +71,7 @@ final class RakugoViewModel {
 
     func advanceScene() {
         guard let openStory, !openStory.scenes.isEmpty else { return }
-        currentPageIndex = (currentPageIndex + 1) % openStory.scenes.count
+        currentPageIndex = min(currentPageIndex + 1, openStory.scenes.count - 1)
     }
 
     func toggleCurrentSceneBookmark() {

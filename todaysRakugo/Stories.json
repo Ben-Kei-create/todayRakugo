@@ -13,21 +13,25 @@
         "characterLayers": [
           { "id": "narrator-01", "characterKey": "narrator", "expressionKey": "calm", "placement": "center" }
         ],
-        "japaneseDialogue": "夜もふけて、町の灯りがひとつ、またひとつと細くなってまいります。",
-        "englishSubtitle": "The night deepens, and the town lights grow thin one by one.",
-        "narrationAudio": "narration/toki-soba-01.m4a",
-        "ambientEffect": "paper"
+        "decorativeLayer": "paperDust",
+        "japaneseDialogue": "冬の夜。寄席の灯も落ち、江戸の町には、そばの屋台の明かりだけが残ります。",
+        "englishSubtitle": "A winter night. The theater lights have dimmed, and only the soba carts still glow in Edo.",
+        "narrationAvailable": false,
+        "ambientEffect": "paper",
+        "transitionType": "fade"
       },
       {
         "id": "toki-soba-02",
-        "backgroundKey": "narrowAlley",
+        "backgroundKey": "emptyEdoStreet",
         "characterLayers": [
-          { "id": "customer-02", "characterKey": "customer", "expressionKey": "expectant", "placement": "right" }
+          { "id": "customer-02", "characterKey": "customer", "expressionKey": "hungry", "placement": "left" }
         ],
-        "japaneseDialogue": "ふところは軽くても、腹のほうは律儀に鳴るもので。",
-        "englishSubtitle": "Even with an empty purse, the stomach keeps honest time.",
-        "narrationAudio": "narration/toki-soba-02.m4a",
-        "ambientEffect": "lantern"
+        "decorativeLayer": "moonAndStars",
+        "japaneseDialogue": "通りへ出た男がひとり。ふところは軽いが、腹だけは遠慮なく鳴っております。",
+        "englishSubtitle": "A man steps into the street. His purse is light, but his stomach speaks plainly.",
+        "narrationAvailable": false,
+        "ambientEffect": "moon",
+        "transitionType": "crossDissolve"
       },
       {
         "id": "toki-soba-03",
@@ -36,110 +40,287 @@
           { "id": "customer-03", "characterKey": "customer", "expressionKey": "bright", "placement": "left" },
           { "id": "seller-03", "characterKey": "seller", "expressionKey": "listening", "placement": "right" }
         ],
-        "japaneseDialogue": "「すみません、天ぷらそば、ひとつ！」",
-        "englishSubtitle": "Excuse me, one tempura soba, please!",
-        "narrationAudio": "narration/toki-soba-03.m4a",
-        "ambientEffect": "lantern"
+        "decorativeLayer": "lanternGlow",
+        "japaneseDialogue": "「おう、そば屋さん。天ぷらそばを一杯、熱いところを頼むよ。」",
+        "englishSubtitle": "Hello there, soba man. One hot tempura soba, if you please.",
+        "narrationAvailable": false,
+        "ambientEffect": "lantern",
+        "transitionType": "crossDissolve"
       },
       {
         "id": "toki-soba-04",
-        "backgroundKey": "moonlitEdoStreet",
+        "backgroundKey": "sobaCounter",
         "characterLayers": [
-          { "id": "customer-04", "characterKey": "customer", "expressionKey": "thinking", "placement": "center" }
+          { "id": "seller-04", "characterKey": "seller", "expressionKey": "serving", "placement": "right" }
         ],
-        "japaneseDialogue": "「あれ？　五文だったかな……まあ、いいか。」",
-        "englishSubtitle": "Was it five mon? Well, never mind.",
-        "narrationAudio": "narration/toki-soba-04.m4a",
-        "ambientEffect": "moon"
+        "decorativeLayer": "steam",
+        "japaneseDialogue": "湯気がふわり。だしの匂いに、男の顔までほどけてまいります。",
+        "englishSubtitle": "Steam rises softly. The smell of broth loosens even the man's face.",
+        "narrationAvailable": false,
+        "ambientEffect": "lantern",
+        "transitionType": "crossDissolve"
       },
       {
         "id": "toki-soba-05",
-        "backgroundKey": "sobaStand",
+        "backgroundKey": "sobaCounter",
         "characterLayers": [
-          { "id": "seller-05", "characterKey": "seller", "expressionKey": "calm", "placement": "right" }
+          { "id": "customer-05", "characterKey": "customer", "expressionKey": "pleased", "placement": "center" }
         ],
-        "japaneseDialogue": "「一つ、二つ、三つ……お客さん、勘定は十六文で。」",
-        "englishSubtitle": "One, two, three... sixteen mon, sir.",
-        "narrationAudio": "narration/toki-soba-05.m4a",
-        "ambientEffect": "lantern"
+        "decorativeLayer": "steam",
+        "japaneseDialogue": "「うまいねえ。つゆがいい。そばも細くて、こいつはありがたい。」",
+        "englishSubtitle": "Delicious. Fine broth, fine noodles. This is a blessing.",
+        "narrationAvailable": false,
+        "ambientEffect": "lantern",
+        "transitionType": "crossDissolve"
       },
       {
         "id": "toki-soba-06",
         "backgroundKey": "sobaStand",
         "characterLayers": [
-          { "id": "customer-06", "characterKey": "customer", "expressionKey": "clever", "placement": "left" }
+          { "id": "customer-06", "characterKey": "customer", "expressionKey": "settled", "placement": "left" },
+          { "id": "seller-06", "characterKey": "seller", "expressionKey": "calm", "placement": "right" }
         ],
-        "japaneseDialogue": "「八つ、九つ……今、何どきだい？」",
-        "englishSubtitle": "Eight, nine... say, what time is it now?",
-        "narrationAudio": "narration/toki-soba-06.m4a",
-        "ambientEffect": "lantern"
+        "decorativeLayer": "lanternGlow",
+        "japaneseDialogue": "「へい、お代は十六文でございます。」",
+        "englishSubtitle": "That will be sixteen mon, sir.",
+        "narrationAvailable": false,
+        "ambientEffect": "lantern",
+        "transitionType": "crossDissolve"
       },
       {
         "id": "toki-soba-07",
-        "backgroundKey": "narrowAlley",
+        "backgroundKey": "sobaCounter",
         "characterLayers": [
-          { "id": "neighbor-07", "characterKey": "neighbor", "expressionKey": "curious", "placement": "center" }
+          { "id": "customer-07", "characterKey": "customer", "expressionKey": "clever", "placement": "left" }
         ],
-        "japaneseDialogue": "そばをすすりながら、となりの男は目を丸くしております。",
-        "englishSubtitle": "Beside him, another man watches wide-eyed over his noodles.",
-        "narrationAudio": "narration/toki-soba-07.m4a",
-        "ambientEffect": "paper"
+        "decorativeLayer": "paperDust",
+        "japaneseDialogue": "男は銭をつまみ、ゆっくり声に出して数えはじめます。",
+        "englishSubtitle": "The man pinches his coins and begins counting aloud, slowly.",
+        "narrationAvailable": false,
+        "ambientEffect": "paper",
+        "transitionType": "crossDissolve"
       },
       {
         "id": "toki-soba-08",
-        "backgroundKey": "quietRoom",
+        "backgroundKey": "sobaCounter",
         "characterLayers": [
-          { "id": "neighbor-08", "characterKey": "neighbor", "expressionKey": "scheming", "placement": "center" }
+          { "id": "customer-08", "characterKey": "customer", "expressionKey": "counting", "placement": "left" }
         ],
-        "japaneseDialogue": "「うまいことをする。明日の晩は、おれもひとつ。」",
-        "englishSubtitle": "That was clever. Tomorrow night, I shall try it too.",
-        "narrationAudio": "narration/toki-soba-08.m4a",
-        "ambientEffect": "paper"
+        "decorativeLayer": "paperDust",
+        "japaneseDialogue": "「ひい、ふう、みい、よう、いつ、むう、なな、やあ……」",
+        "englishSubtitle": "One, two, three, four, five, six, seven, eight...",
+        "narrationAvailable": false,
+        "ambientEffect": "paper",
+        "transitionType": "crossDissolve"
       },
       {
         "id": "toki-soba-09",
-        "backgroundKey": "moonlitEdoStreet",
+        "backgroundKey": "sobaStand",
         "characterLayers": [
-          { "id": "neighbor-09", "characterKey": "neighbor", "expressionKey": "confident", "placement": "left" }
+          { "id": "customer-09", "characterKey": "customer", "expressionKey": "casual", "placement": "left" },
+          { "id": "seller-09", "characterKey": "seller", "expressionKey": "listening", "placement": "right" }
         ],
-        "japaneseDialogue": "さて翌晩。月は澄み、風は少しばかり冷えております。",
-        "englishSubtitle": "The next night, the moon is clear and the wind is a little cold.",
-        "narrationAudio": "narration/toki-soba-09.m4a",
-        "ambientEffect": "moon"
+        "decorativeLayer": "lanternGlow",
+        "japaneseDialogue": "「ところで親方、今、何どきだい？」",
+        "englishSubtitle": "By the way, master, what time is it now?",
+        "narrationAvailable": false,
+        "ambientEffect": "lantern",
+        "transitionType": "crossDissolve"
       },
       {
         "id": "toki-soba-10",
         "backgroundKey": "sobaStand",
         "characterLayers": [
-          { "id": "neighbor-10", "characterKey": "neighbor", "expressionKey": "serious", "placement": "left" },
-          { "id": "seller-10", "characterKey": "seller", "expressionKey": "listening", "placement": "right" }
+          { "id": "seller-10", "characterKey": "seller", "expressionKey": "plain", "placement": "right" }
         ],
-        "japaneseDialogue": "「一つ、二つ、三つ……ええと、ここで聞くんだった。」",
-        "englishSubtitle": "One, two, three... right, this is where I ask.",
-        "narrationAudio": "narration/toki-soba-10.m4a",
-        "ambientEffect": "lantern"
+        "decorativeLayer": "lanternGlow",
+        "japaneseDialogue": "「へい、九つで。」",
+        "englishSubtitle": "Nine, sir.",
+        "narrationAvailable": false,
+        "ambientEffect": "lantern",
+        "transitionType": "crossDissolve"
       },
       {
         "id": "toki-soba-11",
-        "backgroundKey": "sobaStand",
+        "backgroundKey": "sobaCounter",
         "characterLayers": [
-          { "id": "seller-11", "characterKey": "seller", "expressionKey": "plain", "placement": "right" }
+          { "id": "customer-11", "characterKey": "customer", "expressionKey": "smooth", "placement": "left" }
         ],
-        "japaneseDialogue": "「今、何どきだい？」「へい、四つで。」",
-        "englishSubtitle": "What time is it now? Four, sir.",
-        "narrationAudio": "narration/toki-soba-11.m4a",
-        "ambientEffect": "lantern"
+        "decorativeLayer": "paperDust",
+        "japaneseDialogue": "「とう、十一、十二、十三、十四、十五、十六。ごちそうさん。」",
+        "englishSubtitle": "Ten, eleven, twelve, thirteen, fourteen, fifteen, sixteen. Thank you.",
+        "narrationAvailable": false,
+        "ambientEffect": "paper",
+        "transitionType": "crossDissolve"
       },
       {
         "id": "toki-soba-12",
+        "backgroundKey": "emptyEdoStreet",
+        "characterLayers": [
+          { "id": "customer-12", "characterKey": "customer", "expressionKey": "leaving", "placement": "right" }
+        ],
+        "decorativeLayer": "moonAndStars",
+        "japaneseDialogue": "一文足りぬ勘定を、時刻の声でさらりと抜けて、男は夜道へ消えました。",
+        "englishSubtitle": "With the time itself covering the missing coin, the man slips back into the night.",
+        "narrationAvailable": false,
+        "ambientEffect": "moon",
+        "transitionType": "crossDissolve"
+      },
+      {
+        "id": "toki-soba-13",
         "backgroundKey": "sobaStand",
         "characterLayers": [
-          { "id": "neighbor-12", "characterKey": "neighbor", "expressionKey": "deflated", "placement": "center" }
+          { "id": "neighbor-13", "characterKey": "neighbor", "expressionKey": "surprised", "placement": "center" }
         ],
-        "japaneseDialogue": "「しまった。ひとつ早く来すぎた。」",
-        "englishSubtitle": "Oh no. I came one hour too early.",
-        "narrationAudio": "narration/toki-soba-12.m4a",
-        "ambientEffect": "lantern"
+        "decorativeLayer": "lanternGlow",
+        "japaneseDialogue": "そばをすすっていた別の男が、箸を止めて目を丸くします。",
+        "englishSubtitle": "Another customer stops mid-noodle and stares wide-eyed.",
+        "narrationAvailable": false,
+        "ambientEffect": "lantern",
+        "transitionType": "crossDissolve"
+      },
+      {
+        "id": "toki-soba-14",
+        "backgroundKey": "quietRoom",
+        "characterLayers": [
+          { "id": "neighbor-14", "characterKey": "neighbor", "expressionKey": "scheming", "placement": "center" }
+        ],
+        "decorativeLayer": "paperDust",
+        "japaneseDialogue": "「なるほど。ああやれば一文浮く。明日の晩は、おれもやってみよう。」",
+        "englishSubtitle": "I see. Do it that way, and one coin stays in your hand. Tomorrow night, I will try it too.",
+        "narrationAvailable": false,
+        "ambientEffect": "paper",
+        "transitionType": "crossDissolve"
+      },
+      {
+        "id": "toki-soba-15",
+        "backgroundKey": "moonlitEdoStreet",
+        "characterLayers": [
+          { "id": "neighbor-15", "characterKey": "neighbor", "expressionKey": "confident", "placement": "left" }
+        ],
+        "decorativeLayer": "moonAndStars",
+        "japaneseDialogue": "翌晩。月は白く、風は冷たく、男は胸の中で数の稽古をしております。",
+        "englishSubtitle": "The next night, the moon is pale, the wind is cold, and the man rehearses his counting.",
+        "narrationAvailable": false,
+        "ambientEffect": "moon",
+        "transitionType": "fade"
+      },
+      {
+        "id": "toki-soba-16",
+        "backgroundKey": "sobaStand",
+        "characterLayers": [
+          { "id": "neighbor-16", "characterKey": "neighbor", "expressionKey": "formal", "placement": "left" },
+          { "id": "seller-16", "characterKey": "seller", "expressionKey": "listening", "placement": "right" }
+        ],
+        "decorativeLayer": "lanternGlow",
+        "japaneseDialogue": "「そば屋さん、天ぷらそばだ。熱くしてくれ。……勘定は十六文だな。」",
+        "englishSubtitle": "Soba man, tempura soba. Make it hot. And the price is sixteen mon, yes?",
+        "narrationAvailable": false,
+        "ambientEffect": "lantern",
+        "transitionType": "crossDissolve"
+      },
+      {
+        "id": "toki-soba-17",
+        "backgroundKey": "sobaCounter",
+        "characterLayers": [
+          { "id": "neighbor-17", "characterKey": "neighbor", "expressionKey": "impatient", "placement": "center" }
+        ],
+        "decorativeLayer": "steam",
+        "japaneseDialogue": "食べ終わる前から、男の心はもう勘定のほうへ走っております。",
+        "englishSubtitle": "Before he even finishes eating, his mind is already racing toward the payment.",
+        "narrationAvailable": false,
+        "ambientEffect": "lantern",
+        "transitionType": "crossDissolve"
+      },
+      {
+        "id": "toki-soba-18",
+        "backgroundKey": "sobaCounter",
+        "characterLayers": [
+          { "id": "neighbor-18", "characterKey": "neighbor", "expressionKey": "counting", "placement": "left" }
+        ],
+        "decorativeLayer": "paperDust",
+        "japaneseDialogue": "「ひい、ふう、みい、よう、いつ、むう、なな、やあ……」",
+        "englishSubtitle": "One, two, three, four, five, six, seven, eight...",
+        "narrationAvailable": false,
+        "ambientEffect": "paper",
+        "transitionType": "crossDissolve"
+      },
+      {
+        "id": "toki-soba-19",
+        "backgroundKey": "sobaStand",
+        "characterLayers": [
+          { "id": "neighbor-19", "characterKey": "neighbor", "expressionKey": "ready", "placement": "left" },
+          { "id": "seller-19", "characterKey": "seller", "expressionKey": "calm", "placement": "right" }
+        ],
+        "decorativeLayer": "lanternGlow",
+        "japaneseDialogue": "「親方、今、何どきだい？」",
+        "englishSubtitle": "Master, what time is it now?",
+        "narrationAvailable": false,
+        "ambientEffect": "lantern",
+        "transitionType": "crossDissolve"
+      },
+      {
+        "id": "toki-soba-20",
+        "backgroundKey": "sobaStand",
+        "characterLayers": [
+          { "id": "seller-20", "characterKey": "seller", "expressionKey": "plain", "placement": "right" }
+        ],
+        "decorativeLayer": "lanternGlow",
+        "japaneseDialogue": "「へい、四つで。」",
+        "englishSubtitle": "Four, sir.",
+        "narrationAvailable": false,
+        "ambientEffect": "lantern",
+        "transitionType": "crossDissolve"
+      },
+      {
+        "id": "toki-soba-21",
+        "backgroundKey": "sobaCounter",
+        "characterLayers": [
+          { "id": "neighbor-21", "characterKey": "neighbor", "expressionKey": "frozen", "placement": "center" }
+        ],
+        "decorativeLayer": "paperDust",
+        "japaneseDialogue": "「……五つ、六つ、七つ、八つ、九つ、とう、十一、十二、十三、十四、十五、十六。」",
+        "englishSubtitle": "...Five, six, seven, eight, nine, ten, eleven, twelve, thirteen, fourteen, fifteen, sixteen.",
+        "narrationAvailable": false,
+        "ambientEffect": "paper",
+        "transitionType": "crossDissolve"
+      },
+      {
+        "id": "toki-soba-22",
+        "backgroundKey": "sobaCounter",
+        "characterLayers": [
+          { "id": "neighbor-22", "characterKey": "neighbor", "expressionKey": "emptyhanded", "placement": "center" }
+        ],
+        "decorativeLayer": "paperDust",
+        "japaneseDialogue": "男は払い終えてから、しばらく空の手のひらを見つめます。",
+        "englishSubtitle": "After paying, the man stares for a while at his empty palm.",
+        "narrationAvailable": false,
+        "ambientEffect": "paper",
+        "transitionType": "crossDissolve"
+      },
+      {
+        "id": "toki-soba-23",
+        "backgroundKey": "sobaStand",
+        "characterLayers": [
+          { "id": "neighbor-23", "characterKey": "neighbor", "expressionKey": "deflated", "placement": "center" }
+        ],
+        "decorativeLayer": "lanternGlow",
+        "japaneseDialogue": "「しまった。九つまで待ってから来るんだった。」",
+        "englishSubtitle": "Blast. I should have waited until nine before coming.",
+        "narrationAvailable": false,
+        "ambientEffect": "lantern",
+        "transitionType": "fade"
+      },
+      {
+        "id": "toki-soba-24",
+        "backgroundKey": "emptyEdoStreet",
+        "characterLayers": [],
+        "decorativeLayer": "moonAndStars",
+        "japaneseDialogue": "寒い夜に、そばの湯気だけが、ふわりと笑って消えていきました。",
+        "englishSubtitle": "In the cold night, only the soba steam smiles softly and disappears.",
+        "narrationAvailable": false,
+        "ambientEffect": "moon",
+        "transitionType": "fade"
       }
     ]
   },
