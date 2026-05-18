@@ -1,0 +1,203 @@
+//
+//  RakugoDataSource.swift
+//  todaysRakugo
+//
+//  Created by Codex on 2026/05/18.
+//
+
+import Foundation
+
+enum RakugoDataSource {
+    static func loadStories() -> [RakugoStory] {
+        let decoder = JSONDecoder()
+
+        if let url = Bundle.main.url(forResource: "Stories", withExtension: "json"),
+           let data = try? Data(contentsOf: url),
+           let stories = try? decoder.decode([RakugoStory].self, from: data) {
+            return stories
+        }
+
+        return (try? decoder.decode([RakugoStory].self, from: Data(fallbackJSON.utf8))) ?? []
+    }
+
+    private static let fallbackJSON = """
+    [
+      {
+        "id": "toki-soba",
+        "titleJapanese": "時そば",
+        "titleEnglish": "Time Soba",
+        "category": "comedy",
+        "featuredLabel": "今日の一席",
+        "summary": "夜更けの屋台で、勘定をごまかす男と真似をする男の小さな可笑しみ。",
+        "scenes": [
+          {
+            "id": "toki-soba-01",
+            "backgroundKey": "yoseInterior",
+            "characterLayers": [
+              { "id": "narrator-01", "characterKey": "narrator", "expressionKey": "calm", "placement": "center" }
+            ],
+            "japaneseDialogue": "夜もふけて、町の灯りがひとつ、またひとつと細くなってまいります。",
+            "englishSubtitle": "The night deepens, and the town lights grow thin one by one.",
+            "narrationAudio": "narration/toki-soba-01.m4a",
+            "ambientEffect": "paper"
+          },
+          {
+            "id": "toki-soba-02",
+            "backgroundKey": "narrowAlley",
+            "characterLayers": [
+              { "id": "customer-02", "characterKey": "customer", "expressionKey": "expectant", "placement": "right" }
+            ],
+            "japaneseDialogue": "ふところは軽くても、腹のほうは律儀に鳴るもので。",
+            "englishSubtitle": "Even with an empty purse, the stomach keeps honest time.",
+            "narrationAudio": "narration/toki-soba-02.m4a",
+            "ambientEffect": "lantern"
+          },
+          {
+            "id": "toki-soba-03",
+            "backgroundKey": "sobaStand",
+            "characterLayers": [
+              { "id": "customer-03", "characterKey": "customer", "expressionKey": "bright", "placement": "left" },
+              { "id": "seller-03", "characterKey": "seller", "expressionKey": "listening", "placement": "right" }
+            ],
+            "japaneseDialogue": "「すみません、天ぷらそば、ひとつ！」",
+            "englishSubtitle": "Excuse me, one tempura soba, please!",
+            "narrationAudio": "narration/toki-soba-03.m4a",
+            "ambientEffect": "lantern"
+          },
+          {
+            "id": "toki-soba-04",
+            "backgroundKey": "moonlitEdoStreet",
+            "characterLayers": [
+              { "id": "customer-04", "characterKey": "customer", "expressionKey": "thinking", "placement": "center" }
+            ],
+            "japaneseDialogue": "「あれ？　五文だったかな……まあ、いいか。」",
+            "englishSubtitle": "Was it five mon? Well, never mind.",
+            "narrationAudio": "narration/toki-soba-04.m4a",
+            "ambientEffect": "moon"
+          },
+          {
+            "id": "toki-soba-05",
+            "backgroundKey": "sobaStand",
+            "characterLayers": [
+              { "id": "seller-05", "characterKey": "seller", "expressionKey": "calm", "placement": "right" }
+            ],
+            "japaneseDialogue": "「一つ、二つ、三つ……お客さん、勘定は十六文で。」",
+            "englishSubtitle": "One, two, three... sixteen mon, sir.",
+            "narrationAudio": "narration/toki-soba-05.m4a",
+            "ambientEffect": "lantern"
+          },
+          {
+            "id": "toki-soba-06",
+            "backgroundKey": "sobaStand",
+            "characterLayers": [
+              { "id": "customer-06", "characterKey": "customer", "expressionKey": "clever", "placement": "left" }
+            ],
+            "japaneseDialogue": "「八つ、九つ……今、何どきだい？」",
+            "englishSubtitle": "Eight, nine... say, what time is it now?",
+            "narrationAudio": "narration/toki-soba-06.m4a",
+            "ambientEffect": "lantern"
+          },
+          {
+            "id": "toki-soba-07",
+            "backgroundKey": "narrowAlley",
+            "characterLayers": [
+              { "id": "neighbor-07", "characterKey": "neighbor", "expressionKey": "curious", "placement": "center" }
+            ],
+            "japaneseDialogue": "そばをすすりながら、となりの男は目を丸くしております。",
+            "englishSubtitle": "Beside him, another man watches wide-eyed over his noodles.",
+            "narrationAudio": "narration/toki-soba-07.m4a",
+            "ambientEffect": "paper"
+          },
+          {
+            "id": "toki-soba-08",
+            "backgroundKey": "quietRoom",
+            "characterLayers": [
+              { "id": "neighbor-08", "characterKey": "neighbor", "expressionKey": "scheming", "placement": "center" }
+            ],
+            "japaneseDialogue": "「うまいことをする。明日の晩は、おれもひとつ。」",
+            "englishSubtitle": "That was clever. Tomorrow night, I shall try it too.",
+            "narrationAudio": "narration/toki-soba-08.m4a",
+            "ambientEffect": "paper"
+          },
+          {
+            "id": "toki-soba-09",
+            "backgroundKey": "moonlitEdoStreet",
+            "characterLayers": [
+              { "id": "neighbor-09", "characterKey": "neighbor", "expressionKey": "confident", "placement": "left" }
+            ],
+            "japaneseDialogue": "さて翌晩。月は澄み、風は少しばかり冷えております。",
+            "englishSubtitle": "The next night, the moon is clear and the wind is a little cold.",
+            "narrationAudio": "narration/toki-soba-09.m4a",
+            "ambientEffect": "moon"
+          },
+          {
+            "id": "toki-soba-10",
+            "backgroundKey": "sobaStand",
+            "characterLayers": [
+              { "id": "neighbor-10", "characterKey": "neighbor", "expressionKey": "serious", "placement": "left" },
+              { "id": "seller-10", "characterKey": "seller", "expressionKey": "listening", "placement": "right" }
+            ],
+            "japaneseDialogue": "「一つ、二つ、三つ……ええと、ここで聞くんだった。」",
+            "englishSubtitle": "One, two, three... right, this is where I ask.",
+            "narrationAudio": "narration/toki-soba-10.m4a",
+            "ambientEffect": "lantern"
+          },
+          {
+            "id": "toki-soba-11",
+            "backgroundKey": "sobaStand",
+            "characterLayers": [
+              { "id": "seller-11", "characterKey": "seller", "expressionKey": "plain", "placement": "right" }
+            ],
+            "japaneseDialogue": "「今、何どきだい？」「へい、四つで。」",
+            "englishSubtitle": "What time is it now? Four, sir.",
+            "narrationAudio": "narration/toki-soba-11.m4a",
+            "ambientEffect": "lantern"
+          },
+          {
+            "id": "toki-soba-12",
+            "backgroundKey": "sobaStand",
+            "characterLayers": [
+              { "id": "neighbor-12", "characterKey": "neighbor", "expressionKey": "deflated", "placement": "center" }
+            ],
+            "japaneseDialogue": "「しまった。ひとつ早く来すぎた。」",
+            "englishSubtitle": "Oh no. I came one hour too early.",
+            "narrationAudio": "narration/toki-soba-12.m4a",
+            "ambientEffect": "lantern"
+          }
+        ]
+      },
+      {
+        "id": "shibahama",
+        "titleJapanese": "芝浜",
+        "titleEnglish": "Shibahama",
+        "category": "humanDrama",
+        "featuredLabel": "静かな一席",
+        "summary": "朝靄の浜で拾った財布から、夫婦の暮らしが静かに変わってゆく人情噺。",
+        "scenes": [
+          {
+            "id": "shibahama-01",
+            "backgroundKey": "quietRoom",
+            "characterLayers": [
+              { "id": "wife-01", "characterKey": "wife", "expressionKey": "calm", "placement": "right" }
+            ],
+            "japaneseDialogue": "「おまえさん、今日は早く店へお行きなさい。」",
+            "englishSubtitle": "Dear, go to the market early today.",
+            "narrationAudio": "narration/shibahama-01.m4a",
+            "ambientEffect": "paper"
+          },
+          {
+            "id": "shibahama-02",
+            "backgroundKey": "moonlitEdoStreet",
+            "characterLayers": [
+              { "id": "fishmonger-02", "characterKey": "fishmonger", "expressionKey": "sleepy", "placement": "left" }
+            ],
+            "japaneseDialogue": "まだ夜の名残りが、浜の上に薄く残っております。",
+            "englishSubtitle": "A trace of night still lies softly over the shore.",
+            "narrationAudio": "narration/shibahama-02.m4a",
+            "ambientEffect": "moon"
+          }
+        ]
+      }
+    ]
+    """
+}

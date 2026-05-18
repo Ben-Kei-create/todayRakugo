@@ -1,0 +1,13 @@
+{
+  "images" : [
+    {
+      "filename" : "story_page_background_art.png",
+      "idiom" : "universal",
+      "scale" : "1x"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}
