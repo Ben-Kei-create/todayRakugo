@@ -278,7 +278,10 @@ struct StoryIllustrationPlaceholder: View {
     var characterLayers: [CharacterLayer] = []
     var decorativeLayer: SceneDecorativeLayer?
     var mood: AmbientEffect = .paper
+    var composition: SceneComposition = .balanced
     var cornerRadius: CGFloat = 18
+
+    @State private var atmospherePhase = false
 
     var body: some View {
         GeometryReader { proxy in
@@ -316,23 +319,28 @@ struct StoryIllustrationPlaceholder: View {
 
                 ForEach(characterLayers) { layer in
                     CharacterPlaceholder(layer: layer)
-                        .frame(width: proxy.size.width * 0.29, height: proxy.size.height * 0.48)
-                        .position(characterPosition(layer.placement, in: proxy.size))
+                        .frame(
+                            width: proxy.size.width * characterWidth,
+                            height: proxy.size.height * characterHeight
+                        )
+                        .position(characterPosition(layer.placement, in: proxy.size, composition: composition))
+                        .opacity(composition == .wide ? 0.78 : 0.88)
                         .transition(.opacity)
                 }
 
-                decorativeOverlay(decorativeLayer, in: proxy.size)
+                decorativeOverlay(decorativeLayer, in: proxy.size, phase: atmospherePhase)
+                    .accessibilityHidden(true)
 
                 if mood == .lantern {
                     RadialGradient(
-                        colors: [Color.lanternOrange.opacity(0.26), .clear],
+                        colors: [Color.lanternOrange.opacity(atmospherePhase ? 0.29 : 0.22), .clear],
                         center: .topLeading,
                         startRadius: 24,
                         endRadius: proxy.size.width * 0.65
                     )
                 } else if mood == .moon {
                     RadialGradient(
-                        colors: [.white.opacity(0.18), .clear],
+                        colors: [.white.opacity(atmospherePhase ? 0.2 : 0.15), .clear],
                         center: .topTrailing,
                         startRadius: 18,
                         endRadius: proxy.size.width * 0.55
@@ -341,9 +349,9 @@ struct StoryIllustrationPlaceholder: View {
 
                 LinearGradient(
                     colors: [
-                        Color.sumiBlack.opacity(0.28),
+                        Color.sumiBlack.opacity(composition.vignetteOpacity),
                         .clear,
-                        Color.sumiBlack.opacity(0.14)
+                        Color.sumiBlack.opacity(composition.vignetteOpacity * 0.5)
                     ],
                     startPoint: .bottom,
                     endPoint: .top
@@ -356,6 +364,11 @@ struct StoryIllustrationPlaceholder: View {
         }
         .background(Color.washiIvory)
         .paperCard(cornerRadius: cornerRadius, shadowOpacity: 0.12)
+        .onAppear {
+            withAnimation(.easeInOut(duration: 6.8).repeatForever(autoreverses: true)) {
+                atmospherePhase = true
+            }
+        }
     }
 
     private var paperScratches: some View {
@@ -394,23 +407,64 @@ struct StoryIllustrationPlaceholder: View {
         return LinearGradient(colors: colors, startPoint: .top, endPoint: .bottom)
     }
 
-    private func characterPosition(_ placement: CharacterPlacement, in size: CGSize) -> CGPoint {
+    private var characterWidth: CGFloat {
+        switch composition {
+        case .wide, .quietPause:
+            0.22
+        case .close:
+            0.36
+        case .tabletop:
+            0.26
+        case .balanced:
+            0.29
+        }
+    }
+
+    private var characterHeight: CGFloat {
+        switch composition {
+        case .wide, .quietPause:
+            0.39
+        case .close:
+            0.58
+        case .tabletop:
+            0.44
+        case .balanced:
+            0.48
+        }
+    }
+
+    private func characterPosition(_ placement: CharacterPlacement, in size: CGSize, composition: SceneComposition) -> CGPoint {
+        let verticalAnchor: CGFloat
+
+        switch composition {
+        case .wide:
+            verticalAnchor = size.height * 0.71
+        case .close:
+            verticalAnchor = size.height * 0.7
+        case .tabletop:
+            verticalAnchor = size.height * 0.72
+        case .quietPause:
+            verticalAnchor = size.height * 0.76
+        case .balanced:
+            verticalAnchor = size.height * 0.67
+        }
+
         switch placement {
         case .left:
-            CGPoint(x: size.width * 0.3, y: size.height * 0.67)
+            return CGPoint(x: size.width * composition.leftPlacementX, y: verticalAnchor)
         case .center:
-            CGPoint(x: size.width * 0.52, y: size.height * 0.66)
+            return CGPoint(x: size.width * composition.centerPlacementX, y: verticalAnchor)
         case .right:
-            CGPoint(x: size.width * 0.72, y: size.height * 0.67)
+            return CGPoint(x: size.width * composition.rightPlacementX, y: verticalAnchor)
         }
     }
 
     @ViewBuilder
-    private func decorativeOverlay(_ layer: SceneDecorativeLayer?, in size: CGSize) -> some View {
+    private func decorativeOverlay(_ layer: SceneDecorativeLayer?, in size: CGSize, phase: Bool) -> some View {
         switch layer {
         case .lanternGlow:
             RadialGradient(
-                colors: [Color.lanternOrange.opacity(0.24), .clear],
+                colors: [Color.lanternOrange.opacity(phase ? 0.28 : 0.19), .clear],
                 center: .bottomTrailing,
                 startRadius: 18,
                 endRadius: size.width * 0.5
@@ -418,17 +472,17 @@ struct StoryIllustrationPlaceholder: View {
         case .moonAndStars:
             ZStack {
                 Circle()
-                    .fill(Color.washiIvory.opacity(0.34))
+                    .fill(Color.washiIvory.opacity(phase ? 0.38 : 0.3))
                     .frame(width: size.width * 0.13, height: size.width * 0.13)
                     .position(x: size.width * 0.18, y: size.height * 0.17)
 
                 ForEach(0..<7, id: \.self) { index in
                     Image(systemName: "sparkle")
                         .font(.system(size: 5 + CGFloat(index % 3) * 2, weight: .light))
-                        .foregroundStyle(Color.washiIvory.opacity(0.24))
+                        .foregroundStyle(Color.washiIvory.opacity(phase ? 0.26 : 0.18))
                         .position(
                             x: size.width * CGFloat(0.18 + Double((index * 13) % 68) / 100.0),
-                            y: size.height * CGFloat(0.14 + Double((index * 19) % 34) / 100.0)
+                            y: size.height * CGFloat(0.14 + Double((index * 19) % 34) / 100.0) + (phase ? -2 : 2)
                         )
                 }
             }
@@ -436,12 +490,12 @@ struct StoryIllustrationPlaceholder: View {
             ZStack {
                 ForEach(0..<5, id: \.self) { index in
                     Capsule()
-                        .stroke(Color.washiIvory.opacity(0.18), lineWidth: 1.1)
-                        .frame(width: size.width * 0.08, height: size.height * 0.18)
-                        .rotationEffect(.degrees(Double(index * 7) - 12))
+                        .stroke(Color.washiIvory.opacity(phase ? 0.23 : 0.13), lineWidth: 1.1)
+                        .frame(width: size.width * 0.08, height: size.height * (phase ? 0.21 : 0.17))
+                        .rotationEffect(.degrees(Double(index * 7) - 12 + (phase ? 2 : -1)))
                         .position(
                             x: size.width * CGFloat(0.38 + Double(index) * 0.055),
-                            y: size.height * CGFloat(0.42 - Double(index % 2) * 0.04)
+                            y: size.height * CGFloat(0.42 - Double(index % 2) * 0.04) + (phase ? -7 : 3)
                         )
                 }
             }
@@ -453,8 +507,9 @@ struct StoryIllustrationPlaceholder: View {
                         .frame(width: CGFloat(2 + index % 4), height: CGFloat(2 + index % 4))
                         .position(
                             x: size.width * CGFloat(Double((index * 17) % 86) / 100.0 + 0.07),
-                            y: size.height * CGFloat(Double((index * 29) % 70) / 100.0 + 0.12)
+                            y: size.height * CGFloat(Double((index * 29) % 70) / 100.0 + 0.12) + (phase ? -5 : 2)
                         )
+                        .opacity(phase ? 0.9 : 0.58)
                 }
             }
         case nil:
@@ -716,6 +771,64 @@ struct CharacterPlaceholder: View {
             }
         }
         .opacity(0.88)
+    }
+}
+
+private extension SceneComposition {
+    var vignetteOpacity: Double {
+        switch self {
+        case .wide, .quietPause:
+            0.2
+        case .close, .tabletop:
+            0.32
+        case .balanced:
+            0.28
+        }
+    }
+
+    var leftPlacementX: CGFloat {
+        switch self {
+        case .wide:
+            0.24
+        case .close:
+            0.36
+        case .tabletop:
+            0.32
+        case .quietPause:
+            0.18
+        case .balanced:
+            0.3
+        }
+    }
+
+    var centerPlacementX: CGFloat {
+        switch self {
+        case .wide:
+            0.48
+        case .close:
+            0.5
+        case .tabletop:
+            0.54
+        case .quietPause:
+            0.5
+        case .balanced:
+            0.52
+        }
+    }
+
+    var rightPlacementX: CGFloat {
+        switch self {
+        case .wide:
+            0.76
+        case .close:
+            0.64
+        case .tabletop:
+            0.68
+        case .quietPause:
+            0.82
+        case .balanced:
+            0.72
+        }
     }
 }
 

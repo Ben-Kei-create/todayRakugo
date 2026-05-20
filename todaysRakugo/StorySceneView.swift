@@ -24,7 +24,7 @@ struct StorySceneView: View {
             if let scene = currentScene {
                 GeometryReader { proxy in
                     ScrollView(showsIndicators: false) {
-                        VStack(spacing: 20) {
+                        VStack(spacing: scene.composition.stackSpacing) {
                             topBar
                                 .padding(.top, 4)
 
@@ -34,9 +34,10 @@ struct StorySceneView: View {
                                 characterLayers: scene.characterLayers,
                                 decorativeLayer: scene.decorativeLayer,
                                 mood: scene.ambientEffect,
+                                composition: scene.composition,
                                 cornerRadius: 16
                             )
-                            .frame(height: illustrationHeight(for: proxy.size))
+                            .frame(height: illustrationHeight(for: proxy.size, scene: scene))
                             .id(scene.id)
                             .transition(scene.transitionType.swiftUITransition)
 
@@ -48,7 +49,7 @@ struct StorySceneView: View {
                             Spacer(minLength: 8)
 
                             bottomBar(scene: scene)
-                                .padding(.bottom, max(proxy.safeAreaInsets.bottom + 18, 28))
+                                .padding(.bottom, max(proxy.safeAreaInsets.bottom + 20, 30))
                         }
                         .padding(.horizontal, 20)
                         .frame(maxWidth: 430)
@@ -101,14 +102,14 @@ struct StorySceneView: View {
     private func bottomBar(scene: RakugoScene) -> some View {
         ZStack {
             Text("\(pageIndex + 1) / \(story.scenes.count)")
-                .font(.rakugoSerif(12, weight: .medium))
-                .foregroundStyle(Color.sumiBlack.opacity(0.75))
+                .font(.rakugoSerif(11.5, weight: .medium))
+                .foregroundStyle(Color.sumiBlack.opacity(0.56))
 
             HStack {
                 Button {} label: {
                     Image(systemName: "speaker.wave.2")
                         .font(.system(size: 15))
-                        .foregroundStyle(Color.sumiBlack.opacity(scene.narrationAvailable ? 0.54 : 0.22))
+                        .foregroundStyle(Color.sumiBlack.opacity(scene.narrationAvailable ? 0.5 : 0.16))
                         .frame(width: 44, height: 44)
                 }
                 .buttonStyle(.plain)
@@ -120,7 +121,7 @@ struct StorySceneView: View {
                 Button(action: onNext) {
                     Image(systemName: "arrow.right")
                         .font(.system(size: 22, weight: .light))
-                        .foregroundStyle(Color.sumiBlack)
+                        .foregroundStyle(Color.sumiBlack.opacity(0.78))
                         .frame(width: 54, height: 44)
                         .contentShape(Rectangle())
                 }
@@ -131,8 +132,15 @@ struct StorySceneView: View {
         .frame(height: 46)
     }
 
-    private func illustrationHeight(for size: CGSize) -> CGFloat {
-        min(max(size.height * 0.455, 300), 430)
+    private func illustrationHeight(for size: CGSize, scene: RakugoScene) -> CGFloat {
+        switch scene.composition {
+        case .wide, .quietPause:
+            min(max(size.height * 0.47, 312), 440)
+        case .close, .tabletop:
+            min(max(size.height * 0.43, 292), 404)
+        case .balanced:
+            min(max(size.height * 0.455, 300), 430)
+        }
     }
 }
 
@@ -144,9 +152,28 @@ private extension SceneTransitionType {
     var swiftUIAnimation: Animation {
         switch self {
         case .fade:
-            .easeInOut(duration: 0.42)
+            .easeInOut(duration: 0.48)
         case .crossDissolve:
             .easeInOut(duration: 0.58)
+        case .quietHold:
+            .easeInOut(duration: 0.86)
+        case .comedicBeat:
+            .easeInOut(duration: 0.34)
+        case .endingHold:
+            .easeInOut(duration: 1.05)
+        }
+    }
+}
+
+private extension SceneComposition {
+    var stackSpacing: CGFloat {
+        switch self {
+        case .wide, .quietPause:
+            22
+        case .close, .tabletop:
+            18
+        case .balanced:
+            20
         }
     }
 }
@@ -172,9 +199,9 @@ private struct DialogueBlock: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 18) {
             Text(scene.japaneseDialogue)
-                .font(.rakugoSerif(21.5, weight: .semibold))
+                .font(.rakugoSerif(scene.composition == .quietPause ? 20 : 21.5, weight: .semibold))
                 .foregroundStyle(Color.sumiBlack.opacity(0.92))
-                .lineSpacing(10)
+                .lineSpacing(11)
                 .fixedSize(horizontal: false, vertical: true)
 
             Rectangle()
@@ -183,9 +210,9 @@ private struct DialogueBlock: View {
 
             if isEnglishVisible {
                 Text(scene.englishSubtitle)
-                    .font(.rakugoSerif(12.5))
-                    .foregroundStyle(Color.sumiBlack.opacity(0.56))
-                    .lineSpacing(5)
+                    .font(.rakugoSerif(12.2))
+                    .foregroundStyle(Color.sumiBlack.opacity(0.52))
+                    .lineSpacing(5.5)
                     .fixedSize(horizontal: false, vertical: true)
             }
         }

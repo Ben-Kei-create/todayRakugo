@@ -18,7 +18,8 @@
         "englishSubtitle": "A winter night. The theater lights have dimmed, and only the soba carts still glow in Edo.",
         "narrationAvailable": false,
         "ambientEffect": "paper",
-        "transitionType": "fade"
+        "composition": "quietPause",
+        "transitionType": "quietHold"
       },
       {
         "id": "toki-soba-02",
@@ -31,7 +32,8 @@
         "englishSubtitle": "A man steps into the street. His purse is light, but his stomach speaks plainly.",
         "narrationAvailable": false,
         "ambientEffect": "moon",
-        "transitionType": "crossDissolve"
+        "composition": "wide",
+        "transitionType": "quietHold"
       },
       {
         "id": "toki-soba-03",
@@ -58,6 +60,7 @@
         "englishSubtitle": "Steam rises softly. The smell of broth loosens even the man's face.",
         "narrationAvailable": false,
         "ambientEffect": "lantern",
+        "composition": "tabletop",
         "transitionType": "crossDissolve"
       },
       {
@@ -71,6 +74,7 @@
         "englishSubtitle": "Delicious. Fine broth, fine noodles. This is a blessing.",
         "narrationAvailable": false,
         "ambientEffect": "lantern",
+        "composition": "close",
         "transitionType": "crossDissolve"
       },
       {
@@ -98,6 +102,7 @@
         "englishSubtitle": "The man pinches his coins and begins counting aloud, slowly.",
         "narrationAvailable": false,
         "ambientEffect": "paper",
+        "composition": "tabletop",
         "transitionType": "crossDissolve"
       },
       {
@@ -111,7 +116,8 @@
         "englishSubtitle": "One, two, three, four, five, six, seven, eight...",
         "narrationAvailable": false,
         "ambientEffect": "paper",
-        "transitionType": "crossDissolve"
+        "composition": "tabletop",
+        "transitionType": "comedicBeat"
       },
       {
         "id": "toki-soba-09",
@@ -125,7 +131,8 @@
         "englishSubtitle": "By the way, master, what time is it now?",
         "narrationAvailable": false,
         "ambientEffect": "lantern",
-        "transitionType": "crossDissolve"
+        "composition": "close",
+        "transitionType": "comedicBeat"
       },
       {
         "id": "toki-soba-10",
@@ -138,7 +145,8 @@
         "englishSubtitle": "Nine, sir.",
         "narrationAvailable": false,
         "ambientEffect": "lantern",
-        "transitionType": "crossDissolve"
+        "composition": "close",
+        "transitionType": "comedicBeat"
       },
       {
         "id": "toki-soba-11",
@@ -151,7 +159,8 @@
         "englishSubtitle": "Ten, eleven, twelve, thirteen, fourteen, fifteen, sixteen. Thank you.",
         "narrationAvailable": false,
         "ambientEffect": "paper",
-        "transitionType": "crossDissolve"
+        "composition": "tabletop",
+        "transitionType": "comedicBeat"
       },
       {
         "id": "toki-soba-12",
@@ -164,7 +173,20 @@
         "englishSubtitle": "With the time itself covering the missing coin, the man slips back into the night.",
         "narrationAvailable": false,
         "ambientEffect": "moon",
-        "transitionType": "crossDissolve"
+        "composition": "wide",
+        "transitionType": "quietHold"
+      },
+      {
+        "id": "toki-soba-12b",
+        "backgroundKey": "emptyEdoStreet",
+        "characterLayers": [],
+        "decorativeLayer": "moonAndStars",
+        "japaneseDialogue": "……",
+        "englishSubtitle": "...",
+        "narrationAvailable": false,
+        "ambientEffect": "moon",
+        "composition": "quietPause",
+        "transitionType": "quietHold"
       },
       {
         "id": "toki-soba-13",
@@ -177,7 +199,8 @@
         "englishSubtitle": "Another customer stops mid-noodle and stares wide-eyed.",
         "narrationAvailable": false,
         "ambientEffect": "lantern",
-        "transitionType": "crossDissolve"
+        "composition": "close",
+        "transitionType": "comedicBeat"
       },
       {
         "id": "toki-soba-14",
@@ -190,6 +213,7 @@
         "englishSubtitle": "I see. Do it that way, and one coin stays in your hand. Tomorrow night, I will try it too.",
         "narrationAvailable": false,
         "ambientEffect": "paper",
+        "composition": "close",
         "transitionType": "crossDissolve"
       },
       {
@@ -203,7 +227,8 @@
         "englishSubtitle": "The next night, the moon is pale, the wind is cold, and the man rehearses his counting.",
         "narrationAvailable": false,
         "ambientEffect": "moon",
-        "transitionType": "fade"
+        "composition": "wide",
+        "transitionType": "quietHold"
       },
       {
         "id": "toki-soba-16",
@@ -230,6 +255,7 @@
         "englishSubtitle": "Before he even finishes eating, his mind is already racing toward the payment.",
         "narrationAvailable": false,
         "ambientEffect": "lantern",
+        "composition": "tabletop",
         "transitionType": "crossDissolve"
       },
       {
@@ -243,7 +269,8 @@
         "englishSubtitle": "One, two, three, four, five, six, seven, eight...",
         "narrationAvailable": false,
         "ambientEffect": "paper",
-        "transitionType": "crossDissolve"
+        "composition": "tabletop",
+        "transitionType": "comedicBeat"
       },
       {
         "id": "toki-soba-19",
@@ -257,7 +284,8 @@
         "englishSubtitle": "Master, what time is it now?",
         "narrationAvailable": false,
         "ambientEffect": "lantern",
-        "transitionType": "crossDissolve"
+        "composition": "close",
+        "transitionType": "comedicBeat"
       },
       {
         "id": "toki-soba-20",
@@ -270,7 +298,20 @@
         "englishSubtitle": "Four, sir.",
         "narrationAvailable": false,
         "ambientEffect": "lantern",
-        "transitionType": "crossDissolve"
+        "composition": "close",
+        "transitionType": "comedicBeat"
+      },
+      {
+        "id": "toki-soba-20b",
+        "backgroundKey": "sobaStand",
+        "characterLayers": [],
+        "decorativeLayer": "lanternGlow",
+        "japaneseDialogue": "……",
+        "englishSubtitle": "...",
+        "narrationAvailable": false,
+        "ambientEffect": "lantern",
+        "composition": "quietPause",
+        "transitionType": "quietHold"
       },
       {
         "id": "toki-soba-21",
@@ -283,7 +324,8 @@
         "englishSubtitle": "...Five, six, seven, eight, nine, ten, eleven, twelve, thirteen, fourteen, fifteen, sixteen.",
         "narrationAvailable": false,
         "ambientEffect": "paper",
-        "transitionType": "crossDissolve"
+        "composition": "tabletop",
+        "transitionType": "comedicBeat"
       },
       {
         "id": "toki-soba-22",
@@ -296,7 +338,8 @@
         "englishSubtitle": "After paying, the man stares for a while at his empty palm.",
         "narrationAvailable": false,
         "ambientEffect": "paper",
-        "transitionType": "crossDissolve"
+        "composition": "close",
+        "transitionType": "quietHold"
       },
       {
         "id": "toki-soba-23",
@@ -309,7 +352,8 @@
         "englishSubtitle": "Blast. I should have waited until nine before coming.",
         "narrationAvailable": false,
         "ambientEffect": "lantern",
-        "transitionType": "fade"
+        "composition": "close",
+        "transitionType": "endingHold"
       },
       {
         "id": "toki-soba-24",
@@ -320,7 +364,8 @@
         "englishSubtitle": "In the cold night, only the soba steam smiles softly and disappears.",
         "narrationAvailable": false,
         "ambientEffect": "moon",
-        "transitionType": "fade"
+        "composition": "quietPause",
+        "transitionType": "endingHold"
       }
     ]
   },

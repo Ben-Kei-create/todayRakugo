@@ -76,6 +76,7 @@ struct RakugoScene: Codable, Equatable, Identifiable {
     let narrationAvailable: Bool
     let narrationAudio: String?
     let ambientEffect: AmbientEffect
+    let composition: SceneComposition
     let transitionType: SceneTransitionType
 
     private enum CodingKeys: String, CodingKey {
@@ -89,6 +90,7 @@ struct RakugoScene: Codable, Equatable, Identifiable {
         case narrationAvailable
         case narrationAudio
         case ambientEffect
+        case composition
         case transitionType
     }
 
@@ -104,6 +106,7 @@ struct RakugoScene: Codable, Equatable, Identifiable {
         narrationAudio = try container.decodeIfPresent(String.self, forKey: .narrationAudio)
         narrationAvailable = try container.decodeIfPresent(Bool.self, forKey: .narrationAvailable) ?? (narrationAudio != nil)
         ambientEffect = try container.decodeIfPresent(AmbientEffect.self, forKey: .ambientEffect) ?? .paper
+        composition = try container.decodeIfPresent(SceneComposition.self, forKey: .composition) ?? .balanced
         transitionType = try container.decodeIfPresent(SceneTransitionType.self, forKey: .transitionType) ?? .crossDissolve
     }
 }
@@ -144,9 +147,20 @@ enum AmbientEffect: String, Codable {
     case paper
 }
 
+enum SceneComposition: String, Codable {
+    case balanced
+    case wide
+    case close
+    case tabletop
+    case quietPause
+}
+
 enum SceneTransitionType: String, Codable {
     case fade
     case crossDissolve
+    case quietHold
+    case comedicBeat
+    case endingHold
 }
 
 enum AppTab: String, CaseIterable, Identifiable {
